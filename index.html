@@ -139,6 +139,20 @@ footer .fine { flex-basis: 100%; }
 // ---- the tool catalogue: add an entry here to list a new tool ----
 const GH = "https://github.com/Gemini2350/";
 const TOOLS = [
+    {group: "NMOS", items: [
+        {name: "NMOS Crosspoint", repo: "nmos-crosspoint_v3", base: "3dmedium/nmos_crosspoint",
+         text: "Web-based NMOS controller for ST 2110 and AES67 networks: crosspoint matrix, multicast address management, BCP-008 health and audio monitoring.",
+         tags: ["Docker", "NMOS", "ST 2110"]},
+        {name: "NMOS Federation", repo: "nmos-federation",
+         text: "Gateway between separate ST 2110 / NMOS systems: bridges with virtual senders and receivers, SDP rewrite and multicast NAT.",
+         tags: ["Docker", "NMOS", "ST 2110"]},
+        {name: "NMOS Registry", repo: "nmos-cpp-registry",
+         text: "Dockerised AMWA NMOS registry built from sony/nmos-cpp, bundled with the nmos-js browser UI.",
+         tags: ["Docker", "NMOS"]},
+        {name: "Legacy2NMOS", repo: "Legacy2NMOS",
+         text: "Listens to SAP announcements and publishes the streams as senders in an NMOS registry.",
+         tags: ["Python", "SAP", "NMOS"]}
+    ]},
     {group: "AES67 & audio", items: [
         {name: "AES67eleven", repo: "aes67eleven", site: "https://gemini2350.github.io/aes67eleven/",
          text: "AES67 virtual soundcard for macOS with a PTP-disciplined clock and full NMOS control. Also runs as a headless Docker gateway.",
@@ -157,20 +171,6 @@ const TOOLS = [
         {name: "DVS PTPv2 Unlock", repo: "dvs-ptpv2-unlock",
          text: "Switches on PTPv2 in the Dante Virtual Soundcard with one double-click, on macOS and Windows. Unofficial — not supported by Audinate.",
          base: "tschiemer/dvs-ptp-mitm", tags: ["macOS", "Windows", "Dante", "PTP"]}
-    ]},
-    {group: "NMOS", items: [
-        {name: "NMOS Crosspoint", repo: "nmos-crosspoint_v3", base: "3dmedium/nmos_crosspoint",
-         text: "Web-based NMOS controller for ST 2110 and AES67 networks: crosspoint matrix, multicast address management, BCP-008 health and audio monitoring.",
-         tags: ["Docker", "NMOS", "ST 2110"]},
-        {name: "NMOS Federation", repo: "nmos-federation",
-         text: "Gateway between separate ST 2110 / NMOS systems: bridges with virtual senders and receivers, SDP rewrite and multicast NAT.",
-         tags: ["Docker", "NMOS", "ST 2110"]},
-        {name: "NMOS Registry", repo: "nmos-cpp-registry",
-         text: "Dockerised AMWA NMOS registry built from sony/nmos-cpp, bundled with the nmos-js browser UI.",
-         tags: ["Docker", "NMOS"]},
-        {name: "Legacy2NMOS", repo: "Legacy2NMOS",
-         text: "Listens to SAP announcements and publishes the streams as senders in an NMOS registry.",
-         tags: ["Python", "SAP", "NMOS"]}
     ]},
     {group: "PTP & network", items: [
         {name: "PTPv2 Health Analyzer", repo: "ptpv2-health-analyzer",
