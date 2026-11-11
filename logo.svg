@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <rect x="4" y="4" width="120" height="120" rx="28" fill="#16202f"/>
+  <!-- two redundant network paths (amber / blue) carrying packets -->
+  <path d="M 20 48 H 108" stroke="#d98a00" stroke-width="6" stroke-linecap="round" opacity=".45"/>
+  <path d="M 20 80 H 108" stroke="#2f6fed" stroke-width="6" stroke-linecap="round" opacity=".45"/>
+  <rect x="28" y="38" width="20" height="20" rx="5" fill="#d98a00"/>
+  <rect x="62" y="38" width="20" height="20" rx="5" fill="#d98a00"/>
+  <rect x="45" y="70" width="20" height="20" rx="5" fill="#2f6fed"/>
+  <rect x="79" y="70" width="20" height="20" rx="5" fill="#2f6fed"/>
+</svg>

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MoIP Tools – open tools for AES67, NMOS, ST 2110 and PTP</title>
+<meta name="description" content="A collection of free and open source tools for media over IP: AES67 virtual soundcard, SRT bridge, NMOS federation and registry, PTP and multicast test tools.">
+<link rel="icon" type="image/svg+xml" href="logo.svg">
+<style>
+:root {
+    --bg: #f4f5f7; --panel: #ffffff; --line: #e3e6eb; --text: #1b2330; --dim: #6b7586;
+    --accent: #2f6fed; --accent-soft: #e9f0fe; --ok: #2e9e5b; --amber: #d98a00; --navy: #16202f;
+}
+* { box-sizing: border-box; margin: 0; }
+html { scroll-behavior: smooth; }
+body { background: var(--panel); color: var(--text);
+       font: 16px/1.6 -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", system-ui, sans-serif; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+.wrap { max-width: 1080px; margin: 0 auto; padding: 0 22px; }
+
+header { background: var(--navy); color: #fff; position: sticky; top: 0; z-index: 10; }
+header .wrap { display: flex; align-items: center; gap: 22px; height: 56px; }
+.brand { display: flex; align-items: center; gap: 9px; font-weight: 700; font-size: 17px; color: #fff; }
+.brand:hover { text-decoration: none; }
+.brand img { width: 26px; height: 26px; }
+nav { display: flex; gap: 18px; margin-left: 8px; }
+nav a { color: #c5cedb; font-size: 14.5px; }
+nav a:hover { color: #fff; text-decoration: none; }
+header .gh { margin-left: auto; color: #fff; font-size: 14.5px; font-weight: 600; }
+
+.hero { padding: 64px 0 52px; background: linear-gradient(180deg, #fff 0%, var(--bg) 100%); border-bottom: 1px solid var(--line); }
+.hero h1 { font-size: 44px; line-height: 1.1; letter-spacing: -.6px; }
+.hero p { color: var(--dim); font-size: 19px; margin: 16px 0 0; max-width: 700px; }
+.hero .by { font-size: 15px; margin-top: 14px; }
+
+section { padding: 52px 0; }
+section.alt { background: var(--bg); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+h2 { font-size: 23px; letter-spacing: -.2px; margin: 0 0 14px; display: flex; align-items: center; gap: 10px; }
+h2 .count { background: var(--accent); color: #fff; font-size: 12px; font-weight: 700; padding: 1px 8px; border-radius: 6px; }
+.group { margin-bottom: 38px; }
+.group:last-child { margin-bottom: 0; }
+.grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.tool { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px;
+        box-shadow: 0 1px 2px rgba(16, 24, 40, .05); display: flex; flex-direction: column; gap: 8px; }
+.tool:hover { border-color: #c9ced8; box-shadow: 0 4px 14px rgba(16, 24, 40, .08); }
+.tool h3 { font-size: 16.5px; }
+.tool p { color: var(--dim); font-size: 14.5px; flex: 1; }
+.tags { display: flex; gap: 5px; flex-wrap: wrap; }
+.tag { font-size: 11.5px; font-weight: 700; padding: 1px 8px; border-radius: 6px; background: var(--accent-soft); color: var(--accent); }
+.links { display: flex; gap: 14px; font-size: 14.5px; font-weight: 600; }
+
+.btn { display: inline-block; padding: 11px 20px; border-radius: 9px; font-weight: 600; font-size: 15.5px;
+       border: 1px solid var(--line); background: var(--panel); color: var(--text); }
+.btn:hover { text-decoration: none; border-color: #c9ced8; }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+.btn.donate { background: var(--ok); border-color: var(--ok); color: #fff; }
+section.pro { padding: 44px 0; background: var(--navy); color: #fff; }
+section.pro .wrap { display: flex; align-items: center; gap: 28px; flex-wrap: wrap; }
+section.pro .wrap > div { flex: 1 1 420px; }
+section.pro h2 { margin-bottom: 6px; }
+section.pro p { color: #c5cedb; max-width: 640px; }
+section.pro .btn { white-space: nowrap; }
+.support { text-align: center; }
+.support h2 { justify-content: center; }
+.support p { color: var(--dim); max-width: 660px; margin: 0 auto 22px; }
+.cta { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+footer { padding: 26px 0 34px; color: var(--dim); font-size: 13.5px; border-top: 1px solid var(--line); }
+footer .wrap { display: flex; gap: 8px 18px; flex-wrap: wrap; }
+footer .fine { flex-basis: 100%; }
+
+@media (max-width: 900px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 620px) { .grid { grid-template-columns: 1fr; } .hero h1 { font-size: 34px; } nav { display: none; } }
+</style>
+</head>
+<body>
+
+<header>
+    <div class="wrap">
+        <a class="brand" href="#top"><img src="logo.svg" alt=""> MoIP Tools</a>
+        <nav>
+            <a href="#tools">Tools</a>
+            <a href="#help">Professional help</a>
+            <a href="#support" data-donate-hide>Support</a>
+        </nav>
+        <a class="gh" href="https://github.com/Gemini2350">GitHub ↗</a>
+    </div>
+</header>
+
+<div class="hero" id="top">
+    <div class="wrap">
+        <h1>Open tools for media over IP</h1>
+        <p>AES67, NMOS, ST 2110 and PTP — small, focused tools that came out of daily work in
+           broadcast networks. Free and open source.</p>
+        <p class="by">Built by <a href="https://simplexity.ch" rel="noopener">Simplexity</a>, Zürich.</p>
+    </div>
+</div>
+
+<section id="tools">
+    <div class="wrap" id="tool-groups"></div>
+</section>
+
+<section class="pro" id="help">
+    <div class="wrap">
+        <div>
+            <h2>Need a hand with your network?</h2>
+            <p><strong>Simplexity</strong> offers vendor-independent consulting and training for AES67, Dante,
+               SMPTE ST 2110, IPMX, NMOS and PTP — from strategy down to the bits and bytes.</p>
+        </div>
+        <a class="btn primary" href="https://simplexity.ch" rel="noopener">Professional help at simplexity.ch ↗</a>
+    </div>
+</section>
+
+<section class="alt support" id="support" data-donate-hide>
+    <div class="wrap">
+        <h2>Support the tools</h2>
+        <p>Everything here is free and open source. If a tool saves you time or a hardware purchase,
+           a donation helps keep them maintained.</p>
+        <div class="cta">
+            <a class="btn" id="donate-sponsors" href="" rel="noopener">♥ Sponsor on GitHub</a>
+            <a class="btn" id="donate-paypal" href="" rel="noopener">Donate via PayPal</a>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="wrap">
+        <span>© 2026 Simplexity</span>
+        <a href="https://github.com/Gemini2350">GitHub</a>
+        <a href="https://simplexity.ch" rel="noopener">simplexity.ch</a>
+        <span class="fine">MoIP Tools is an independent project. AES67, NMOS, SMPTE ST 2110, Dante, IPMX and other
+            names are trademarks or standards of their respective owners and are used here only to describe
+            compatibility.</span>
+    </div>
+</footer>
+
+<script>
+// ---- the tool catalogue: add an entry here to list a new tool ----
+const GH = "https://github.com/Gemini2350/";
+const TOOLS = [
+    {group: "AES67 & audio", items: [
+        {name: "AES67eleven", repo: "aes67eleven", site: "https://gemini2350.github.io/aes67eleven/",
+         text: "AES67 virtual soundcard for macOS with a PTP-disciplined clock and full NMOS control. Also runs as a headless Docker gateway.",
+         tags: ["macOS", "Docker", "AES67", "NMOS"]},
+        {name: "AES67 SRT Bridge", repo: "aes67-srt-bridge",
+         text: "Carries AES67 streams over SRT between sites. Docker container with web GUI and NMOS virtual senders and receivers.",
+         tags: ["Docker", "AES67", "SRT", "NMOS"]},
+        {name: "pi-audio-node", repo: "pi-audio-node",
+         text: "AES67 audio node for the Raspberry Pi — the protocol stack AES67eleven grew out of.",
+         tags: ["Raspberry Pi", "AES67"]}
+    ]},
+    {group: "NMOS", items: [
+        {name: "NMOS Federation", repo: "nmos-federation",
+         text: "Gateway between separate ST 2110 / NMOS systems: bridges with virtual senders and receivers, SDP rewrite and multicast NAT.",
+         tags: ["Docker", "NMOS", "ST 2110"]},
+        {name: "NMOS Registry", repo: "nmos-cpp-registry",
+         text: "Dockerised AMWA NMOS registry built from sony/nmos-cpp, bundled with the nmos-js browser UI.",
+         tags: ["Docker", "NMOS"]},
+        {name: "Legacy2NMOS", repo: "Legacy2NMOS",
+         text: "Listens to SAP announcements and publishes the streams as senders in an NMOS registry.",
+         tags: ["Python", "SAP", "NMOS"]}
+    ]},
+    {group: "PTP & network", items: [
+        {name: "PTPv2 Health Analyzer", repo: "ptpv2-health-analyzer",
+         text: "Wireshark Lua plugin: delay request/response matching, rogue master detection, announce and priority tracking.",
+         tags: ["Wireshark", "PTP"]},
+        {name: "PTP Wallclock", repo: "ptp-wallclock",
+         text: "A simple PTP wall clock for the Raspberry Pi with an LED display.",
+         tags: ["Raspberry Pi", "PTP"]},
+        {name: "IGMP Test Tool", repo: "igmp-test-tool",
+         text: "Multicast test tool: IGMP joins (ASM/SSM) per interface with live receive statistics. Web GUI or native app, no dependencies.",
+         tags: ["Python", "Multicast"]},
+        {name: "Impairment GUI", repo: "impairment-gui",
+         text: "Web GUI to switch packet loss and jitter on and off per network leg — for testing seamless redundancy.",
+         tags: ["Docker", "ST 2022-7"]},
+        {name: "Kea Manager", repo: "kea-manager",
+         text: "Web UI for ISC Kea DHCPv4: subnets, reservations, live leases and DDNS in a lightweight Docker container.",
+         tags: ["Docker", "DHCP"]}
+    ]}
+];
+
+const esc = t => String(t).replace(/[&<>"]/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;"}[c]));
+document.getElementById("tool-groups").innerHTML = TOOLS.map(g => `
+    <div class="group">
+        <h2>${esc(g.group)} <span class="count">${g.items.length}</span></h2>
+        <div class="grid">${g.items.map(t => `
+            <div class="tool">
+                <h3>${esc(t.name)}</h3>
+                <p>${esc(t.text)}</p>
+                <div class="tags">${t.tags.map(x => `<span class="tag">${esc(x)}</span>`).join("")}</div>
+                <div class="links">
+                    ${t.site ? `<a href="${esc(t.site)}">Website</a>` : ""}
+                    <a href="${GH}${esc(t.repo)}">GitHub ↗</a>
+                </div>
+            </div>`).join("")}
+        </div>
+    </div>`).join("");
+
+// donation links: a button appears once its link is filled in
+const DONATE = {
+    sponsors: "",   // https://github.com/sponsors/Gemini2350 - once the profile is approved
+    paypal: "https://paypal.me/Gemini2350"
+};
+let any = false;
+for (const [key, url] of Object.entries(DONATE)) {
+    const el = document.getElementById("donate-" + key);
+    if (url) {
+        el.href = url;
+        if (!any) { el.classList.add("donate"); }
+        any = true;
+    } else {
+        el.style.display = "none";
+    }
+}
+if (!any) {
+    document.querySelectorAll("[data-donate-hide]").forEach(el => { el.style.display = "none"; });
+}
+</script>
+</body>
+</html>
