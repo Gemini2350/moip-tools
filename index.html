@@ -51,6 +51,17 @@ h2 .count { background: var(--accent); color: #fff; font-size: 12px; font-weight
 .tag { font-size: 11.5px; font-weight: 700; padding: 1px 8px; border-radius: 6px; background: var(--accent-soft); color: var(--accent); }
 .links { display: flex; gap: 14px; font-size: 14.5px; font-weight: 600; }
 
+.dl p { color: var(--dim); max-width: 760px; margin-bottom: 12px; }
+.dl-scroll { overflow-x: auto; margin: 20px 0 14px; }
+.dl table { border-collapse: collapse; background: var(--panel); border: 1px solid var(--line); border-radius: 12px;
+            overflow: hidden; min-width: 560px; width: 100%; max-width: 760px; font-size: 14.5px; }
+.dl th, .dl td { padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--line); white-space: nowrap; }
+.dl tr:last-child td { border-bottom: 0; }
+.dl thead th { font-size: 12.5px; color: var(--dim); font-weight: 600; }
+.dl thead th small { display: block; font-weight: 400; }
+.dl td a { font-weight: 600; }
+.dl .note { font-size: 13.5px; }
+
 .btn { display: inline-block; padding: 11px 20px; border-radius: 9px; font-weight: 600; font-size: 15.5px;
        border: 1px solid var(--line); background: var(--panel); color: var(--text); }
 .btn:hover { text-decoration: none; border-color: #c9ced8; }
@@ -81,6 +92,7 @@ footer .fine { flex-basis: 100%; }
         <a class="brand" href="#top"><img src="logo.svg" alt=""> MoIP Tools</a>
         <nav>
             <a href="#tools">Tools</a>
+            <a href="#av-sync">AV sync signal</a>
             <a href="#help">Professional help</a>
             <a href="#support" data-donate-hide>Support</a>
         </nav>
@@ -99,6 +111,26 @@ footer .fine { flex-basis: 100%; }
 
 <section id="tools">
     <div class="wrap" id="tool-groups"></div>
+</section>
+
+<section class="alt dl" id="av-sync">
+    <div class="wrap">
+        <h2>AV sync reference signal</h2>
+        <p>A test video for measuring lip sync: once per second a flash and an audio chirp occur at exactly
+           the same moment. A QR code numbers every flash, so picture and sound can be matched even
+           when they are seconds apart.</p>
+        <p>Play it from a file, a playout server or a streaming platform and compare picture and sound at
+           the far end. Made for the <strong>AV Sync Tool</strong> iPhone app, which reads the offset in
+           milliseconds (coming soon to the App Store).</p>
+        <div class="dl-scroll">
+            <table>
+                <thead id="dl-head"></thead>
+                <tbody id="dl-body"></tbody>
+            </table>
+        </div>
+        <p class="note">All files are 1080p, 5:20 min, and were measured after conversion: picture and sound
+           are in sync in every one. Pick the frame rate of your system.</p>
+    </div>
 </section>
 
 <section class="pro" id="help">
@@ -208,6 +240,23 @@ document.getElementById("tool-groups").innerHTML = TOOLS.map(g => `
             </div>`).join("")}
         </div>
     </div>`).join("");
+
+// ---- AV sync reference videos: assets of one GitHub release ----
+const AVSYNC = {
+    base: GH + "moip-tools/releases/download/av-sync-reference-v1/av-sync-reference-1080p",
+    rates: [60, 50, 30, 25],
+    formats: [
+        {ext: "mp4", codec: "H.264 + AAC"},
+        {ext: "mov", codec: "H.264 + PCM"},
+        {ext: "mkv", codec: "H.264 + AAC"},
+        {ext: "webm", codec: "VP9 + Opus"},
+        {ext: "avi", codec: "MPEG-4 + PCM"}
+    ]
+};
+document.getElementById("dl-head").innerHTML = `<tr><th>Frame rate</th>${AVSYNC.formats.map(f =>
+    `<th>${f.ext.toUpperCase()}<small>${esc(f.codec)}</small></th>`).join("")}</tr>`;
+document.getElementById("dl-body").innerHTML = AVSYNC.rates.map(r => `<tr><td>${r} fps</td>${AVSYNC.formats.map(f =>
+    `<td><a href="${AVSYNC.base}${r}.${f.ext}" download>Download</a></td>`).join("")}</tr>`).join("");
 
 // donation links: a button appears once its link is filled in
 const DONATE = {
