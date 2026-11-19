@@ -7,19 +7,21 @@
 //   shots     screenshots in shots/<slug>/: {file, caption}
 //   sample    optional example output, shown as preformatted text: {title, text}
 //   base      upstream project this one is based on
+//   logo      optional logo of the tool (logos/<file>), shown next to its name
 //   site      own homepage; download: true links to the latest GitHub release
 const GH = "https://github.com/Gemini2350/";
 const TOOLS = [
     {group: "NMOS", items: [
-        {slug: "nmos-crosspoint", name: "NMOS Crosspoint", repo: "nmos-crosspoint_v3", base: "3dmedium/nmos_crosspoint",
+        {slug: "nmos-crosspoint", name: "NMOS Crosspoint v3", logo: "logos/nmos-crosspoint.svg", repo: "nmos-crosspoint_v3", base: "3dmedium/nmos_crosspoint",
          text: "Web-based NMOS controller for ST 2110 and AES67 networks: crosspoint matrix, multicast address management, BCP-008 health and audio monitoring.",
-         tags: ["Docker", "NMOS", "ST 2110"],
+         tags: ["Docker", "NMOS", "IS-13", "ST 2110"],
          features: [
             "Crosspoint matrix: connect any sender to any receiver via IS-05, with autotake or stage and TAKE.",
             "Details page with every node, device, sender and receiver live from the registry: formats, bitrates, ST 2022-7 legs and SDP.",
             "Multicast address management from your own pools, optionally split by bandwidth. Duplicates are flagged.",
             "BCP-008 health per sender and receiver via IS-12, and a PTP dot per device that shows whether it is locked to the right grandmaster.",
             "Audio monitor: listen to any audio sender in the browser.",
+            "Rename devices, senders and receivers: as an alias in the controller, or on the device itself via IS-13.",
             "Virtual senders bring devices without NMOS into the matrix with their SDP.",
             "Registry discovery via unicast DNS-SD, mDNS or a static address."
          ],
@@ -31,6 +33,11 @@ const TOOLS = [
         {slug: "nmos-federation", name: "NMOS Federation", repo: "nmos-federation",
          text: "Gateway between separate ST 2110 / NMOS systems: bridges with virtual senders and receivers, SDP rewrite and multicast NAT.",
          tags: ["Docker", "NMOS", "ST 2110"],
+         shotsNote: "Taken with two demo systems and the mock switch driver.",
+         shots: [
+            {file: "status.png", caption: "Status: registries and the active channels with their translated addresses"},
+            {file: "devices.png", caption: "Virtual devices: copy senders and receivers from one system into the other"}
+         ],
          features: [
             "Runs virtual NMOS receivers in one domain and mirrors every source connected to them as a virtual NMOS sender in another domain.",
             "The media does not pass through the software: it is forwarded by multicast NAT on the switch (Arista EOS), with red and blue fabric kept separate.",
@@ -57,6 +64,11 @@ const TOOLS = [
         {slug: "nmos-registry", name: "NMOS Registry", repo: "nmos-cpp-registry",
          text: "Dockerised AMWA NMOS registry built from sony/nmos-cpp, bundled with the nmos-js browser UI.",
          tags: ["Docker", "NMOS"],
+         shotsNote: "Taken with made-up demo devices and addresses.",
+         shots: [
+            {file: "nodes.png", caption: "Nodes in the registry, in the bundled browser UI"},
+            {file: "sender.png", caption: "A sender with its flow, device and transport file"}
+         ],
          features: [
             "Built from a current sony/nmos-cpp with the Conan 2 toolchain. The widely used older image is pinned to a 2022 commit.",
             "IS-04 Registration and Query API on port 8010, with the nmos-js browser UI at /admin/.",
@@ -68,6 +80,10 @@ const TOOLS = [
         {slug: "legacy2nmos", name: "Legacy2NMOS", repo: "Legacy2NMOS",
          text: "Gateway between Dante/AES67 and NMOS: publishes SAP-announced streams as NMOS senders and exposes Dante devices as NMOS receivers.",
          tags: ["Docker", "Desktop", "SAP", "NMOS", "Dante"],
+         shotsNote: "Taken with made-up demo devices and addresses.",
+         shots: [
+            {file: "sap.png", caption: "SAP-announced streams, registered as NMOS senders"}
+         ],
          features: [
             "Listens to SAP announcements and registers the streams as senders in an NMOS IS-04 registry.",
             "Live table of all discovered streams: name, multicast address, format, source IP and registration status.",
@@ -97,6 +113,11 @@ const TOOLS = [
         {slug: "aes67-srt-bridge", name: "AES67 SRT Bridge", repo: "aes67-srt-bridge",
          text: "Carries AES67 streams over SRT between sites. Docker container with web GUI and NMOS virtual senders and receivers.",
          tags: ["Docker", "AES67", "SRT", "NMOS"],
+         shotsNote: "Taken on a test link with generated audio.",
+         shots: [
+            {file: "tx.png", caption: "Sending site: two TX channels with BCP-008 status"},
+            {file: "rx.png", caption: "Receiving site: the same streams arriving over SRT"}
+         ],
          features: [
             "A TX channel is a virtual NMOS receiver: when a controller patches it, the bridge joins the multicast and sends it to the SRT peer.",
             "An RX channel is a virtual NMOS sender: it receives SRT and plays the stream out to its own multicast group.",
@@ -223,6 +244,10 @@ Requester bb:bb:bb:ff:fe:00:00:02 p1   src 10.0.0.2   (domain 0)
         {slug: "igmp-test-tool", name: "IGMP Test Tool", repo: "igmp-test-tool", download: true,
          text: "Multicast test tool: IGMP joins (ASM/SSM) per interface with live receive statistics. Web GUI or native app, no dependencies.",
          tags: ["macOS", "Windows", "Linux", "Multicast"],
+         shotsNote: "Taken in a test network with generated streams.",
+         shots: [
+            {file: "main.png", caption: "Web GUI: join form, library and active joins with live bitrate"}
+         ],
          features: [
             "Joins multicast groups on the interface you choose: ASM, or SSM (IGMPv3) when you enter a source.",
             "Counts received packets and shows the bitrate per join; the UDP port can be detected automatically.",
@@ -234,6 +259,10 @@ Requester bb:bb:bb:ff:fe:00:00:02 p1   src 10.0.0.2   (domain 0)
         {slug: "impairment-gui", name: "Impairment GUI", repo: "impairment-gui",
          text: "Web GUI to switch packet loss and jitter on and off per network leg — for testing seamless redundancy.",
          tags: ["Docker", "ST 2022-7"],
+         shotsNote: "Taken against a simulated switch.",
+         shots: [
+            {file: "main.png", caption: "Packet loss on leg A, jitter on leg B, PTP ports and power"}
+         ],
          features: [
             "Packet loss per leg, switched on and off with storm-control on the leg's Arista switch port.",
             "Jitter on leg A or leg B: the leg is moved by VLAN through one impairment device.",
@@ -245,6 +274,11 @@ Requester bb:bb:bb:ff:fe:00:00:02 p1   src 10.0.0.2   (domain 0)
         {slug: "kea-manager", name: "Kea Manager", repo: "kea-manager",
          text: "Web UI for ISC Kea DHCPv4: subnets, reservations, live leases and DDNS in a lightweight Docker container.",
          tags: ["Docker", "DHCP"],
+         shotsNote: "Taken with made-up demo devices and addresses.",
+         shots: [
+            {file: "leases.png", caption: "Live leases per subnet, with vendor lookup"},
+            {file: "subnets.png", caption: "Subnets with groups and static reservations"}
+         ],
          features: [
             "Live lease view straight from the running server, grouped per subnet, with search and vendor lookup. Changes appear within seconds.",
             "Turn a lease into a static reservation, or delete it, directly in the table.",

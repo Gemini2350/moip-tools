@@ -97,7 +97,7 @@ document.getElementById("tool-groups").innerHTML = TOOLS.map(g => `
         <h2>${esc(g.group)} <span class="count">${g.items.length}</span></h2>
         <div class="grid">${g.items.map(t => `
             <div class="tool">
-                <h3><a href="${toolUrl(t)}">${esc(t.name)}</a></h3>
+                <h3><a href="${toolUrl(t)}">${t.logo ? `<img class="tool-logo" src="${esc(t.logo)}" alt="">` : ""}${esc(t.name)}</a></h3>
                 <p>${esc(t.text)}</p>
                 ${t.base ? `<div class="base">Based on <a href="https://github.com/${esc(t.base)}" rel="noopener">${esc(t.base)}</a></div>` : ""}
                 <div class="tags">${t.tags.map(x => `<span class="tag">${esc(x)}</span>`).join("")}</div>

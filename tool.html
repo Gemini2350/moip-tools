@@ -71,7 +71,7 @@ if (!t) {
     page.innerHTML = `
     <div class="detail-hero"><div class="wrap">
         <a class="crumb" href="./#tools">← All tools</a>
-        <h1>${esc(t.name)}</h1>
+        <h1>${t.logo ? `<img class="tool-logo" src="${esc(t.logo)}" alt="">` : ""}${esc(t.name)}</h1>
         <p class="lead">${esc(t.text)}</p>
         ${t.base ? `<div class="base">Based on <a href="https://github.com/${esc(t.base)}" rel="noopener">${esc(t.base)}</a></div>` : ""}
         <div class="tags">${t.tags.map(x => `<span class="tag">${esc(x)}</span>`).join("")}</div>
