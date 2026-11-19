@@ -13,24 +13,28 @@ const GH = "https://github.com/Gemini2350/";
 const TOOLS = [
     {group: "NMOS", items: [
         {slug: "nmos-crosspoint", name: "NMOS Crosspoint v3", logo: "logos/nmos-crosspoint.svg", repo: "nmos-crosspoint_v3", base: "3dmedium/nmos_crosspoint",
-         text: "Web-based NMOS controller for ST 2110 and AES67 networks: crosspoint matrix, multicast address management, BCP-008 health and audio monitoring.",
-         tags: ["Docker", "NMOS", "IS-13", "ST 2110"],
+         text: "Web-based NMOS controller for ST 2110, AES67 and MXL networks: IS-05 crosspoint matrix, multicast address management, BCP-008 health, IS-13 renaming and audio monitoring.",
+         tags: ["Docker", "IS-04", "IS-05", "IS-12", "IS-13", "BCP-008", "ST 2110"],
          features: [
             "Crosspoint matrix: connect any sender to any receiver via IS-05, with autotake or stage and TAKE.",
-            "Details page with every node, device, sender and receiver live from the registry: formats, bitrates, ST 2022-7 legs and SDP.",
-            "Multicast address management from your own pools, optionally split by bandwidth. Duplicates are flagged.",
-            "BCP-008 health per sender and receiver via IS-12, and a PTP dot per device that shows whether it is locked to the right grandmaster.",
-            "Audio monitor: listen to any audio sender in the browser.",
+            "Details page with every node, device, sender and receiver live from the IS-04 registry: formats, bitrates, ST 2022-7 legs and SDP.",
+            "BCP-008 health per sender and receiver, read over IS-12: link, transmission, sync and essence status with counters.",
             "Rename devices, senders and receivers: as an alias in the controller, or on the device itself via IS-13.",
+            "Multicast address management from your own pools, optionally split by bandwidth. Duplicates are flagged.",
+            "Receiver capabilities (BCP-004-01) show which senders a receiver accepts.",
+            "MXL flows (BCP-007-03) are shown and connected alongside ST 2110 and AES67.",
+            "A PTP dot per device shows whether it is locked to the right grandmaster.",
+            "Audio monitor: listen to any audio sender in the browser.",
             "Virtual senders bring devices without NMOS into the matrix with their SDP.",
-            "Registry discovery via unicast DNS-SD, mDNS or a static address."
+            "Registry discovery via unicast DNS-SD, mDNS or a static address.",
+            "Supported NMOS specifications: IS-04, IS-05, IS-12, IS-13, BCP-004-01, BCP-007-03 and BCP-008."
          ],
          shots: [
             {file: "crosspoint.png", caption: "Crosspoint matrix"},
             {file: "details.png", caption: "Details page"},
             {file: "bcp008-status.png", caption: "BCP-008 status"}
          ]},
-        {slug: "nmos-federation", name: "NMOS Federation", repo: "nmos-federation",
+        {slug: "nmos-federation", logo: "logos/nmos-federation.svg", name: "NMOS Federation", repo: "nmos-federation",
          text: "Gateway between separate ST 2110 / NMOS systems: bridges with virtual senders and receivers, SDP rewrite and multicast NAT.",
          tags: ["Docker", "NMOS", "ST 2110"],
          shotsNote: "Taken with two demo systems and the mock switch driver.",
@@ -61,7 +65,7 @@ const TOOLS = [
   │ internal registry │◄── nmos-federation ──►│ registries 1..n │
   │ virtual receivers │   (Docker, web GUI)   │ virtual senders │
   └───────────────────┘                       └─────────────────┘`}},
-        {slug: "nmos-registry", name: "NMOS Registry", repo: "nmos-cpp-registry",
+        {slug: "nmos-registry", logo: "logos/nmos-registry.svg", name: "NMOS Registry", repo: "nmos-cpp-registry",
          text: "Dockerised AMWA NMOS registry built from sony/nmos-cpp, bundled with the nmos-js browser UI.",
          tags: ["Docker", "NMOS"],
          shotsNote: "Taken with made-up demo devices and addresses.",
@@ -95,7 +99,7 @@ const TOOLS = [
          ]}
     ]},
     {group: "AES67 & audio", items: [
-        {slug: "aes67eleven", name: "AES67eleven", repo: "aes67eleven", site: "https://gemini2350.github.io/aes67eleven/", download: true,
+        {slug: "aes67eleven", logo: "logos/aes67eleven.svg", name: "AES67eleven", repo: "aes67eleven", site: "https://gemini2350.github.io/aes67eleven/", download: true,
          text: "AES67 virtual soundcard for macOS with a PTP-disciplined clock and full NMOS control. Also runs as a headless Docker gateway.",
          tags: ["macOS", "Docker", "AES67", "NMOS"],
          features: [
@@ -110,7 +114,7 @@ const TOOLS = [
             {file: "streams.jpg", caption: "Streams page: one tile per sender and receiver"},
             {file: "overview.jpg", caption: "Overview: PTP, NMOS, interfaces and 64-channel meters"}
          ]},
-        {slug: "aes67-srt-bridge", name: "AES67 SRT Bridge", repo: "aes67-srt-bridge",
+        {slug: "aes67-srt-bridge", logo: "logos/aes67-srt-bridge.svg", name: "AES67 SRT Bridge", repo: "aes67-srt-bridge",
          text: "Carries AES67 streams over SRT between sites. Docker container with web GUI and NMOS virtual senders and receivers.",
          tags: ["Docker", "AES67", "SRT", "NMOS"],
          shotsNote: "Taken on a test link with generated audio.",
@@ -146,7 +150,7 @@ const TOOLS = [
             {file: "receiver.png", caption: "Receiver"},
             {file: "sender.png", caption: "Sender"}
          ]},
-        {slug: "aes67-monitor", name: "AES67 Monitor + NMOS", repo: "aes67-monitor/tree/feature/nmos", base: "philhartung/aes67-monitor",
+        {slug: "aes67-monitor", logo: "logos/aes67-monitor.png", name: "AES67 Monitor + NMOS", repo: "aes67-monitor/tree/feature/nmos", base: "philhartung/aes67-monitor",
          text: "Phil Hartung's AES67 Stream Monitor, extended with NMOS: IS-04/IS-05 receiver node, registry discovery and an NMOS streams tab.",
          tags: ["Desktop", "AES67", "NMOS"],
          features: [
@@ -165,7 +169,7 @@ const TOOLS = [
          ]}
     ]},
     {group: "ST 2110 & capture analysis", items: [
-        {slug: "stream-viewer", name: "ST 2110 / AES67 Stream Viewer", repo: "ST2110-AES67-Stream-Viewer", download: true,
+        {slug: "stream-viewer", logo: "logos/stream-viewer.png", name: "ST 2110 / AES67 Stream Viewer", repo: "ST2110-AES67-Stream-Viewer", download: true,
          text: "Opens a Wireshark capture and lists every AES67 and ST 2110 stream in it: audio playback and WAV export, video frame preview, packet loss, jitter and a check against the PTP clock.",
          tags: ["macOS", "Windows", "ST 2110", "AES67", "PTP"],
          features: [
@@ -256,7 +260,7 @@ Requester bb:bb:bb:ff:fe:00:00:02 p1   src 10.0.0.2   (domain 0)
             "Two variants with the same functions: a native app and a web GUI in the browser.",
             "Prebuilt for macOS and Windows, or run the single Python file. Standard library only."
          ]},
-        {slug: "impairment-gui", name: "Impairment GUI", repo: "impairment-gui",
+        {slug: "impairment-gui", logo: "logos/impairment-gui.svg", name: "Impairment GUI", repo: "impairment-gui",
          text: "Web GUI to switch packet loss and jitter on and off per network leg — for testing seamless redundancy.",
          tags: ["Docker", "ST 2022-7"],
          shotsNote: "Taken against a simulated switch.",
@@ -271,7 +275,7 @@ Requester bb:bb:bb:ff:fe:00:00:02 p1   src 10.0.0.2   (domain 0)
             "Everything is set up in the browser: switch, ports, VLANs, delay and jitter values.",
             "Built for one specific lab setup (Arista eAPI and a p_cap impairment device); take it as a starting point for your own."
          ]},
-        {slug: "kea-manager", name: "Kea Manager", repo: "kea-manager",
+        {slug: "kea-manager", logo: "logos/kea-manager.svg", name: "Kea Manager", repo: "kea-manager",
          text: "Web UI for ISC Kea DHCPv4: subnets, reservations, live leases and DDNS in a lightweight Docker container.",
          tags: ["Docker", "DHCP"],
          shotsNote: "Taken with made-up demo devices and addresses.",
