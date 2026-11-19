@@ -230,7 +230,7 @@ Requester bb:bb:bb:ff:fe:00:00:02 p1   src 10.0.0.2   (domain 0)
   response time min/avg/max: 3.000 / 3.000 / 3.000 ms
   answered by: aa:aa:aa:ff:fe:00:00:01 (6 resp)
   UNANSWERED: seq 3  frame 32  t=1.500s`}},
-        {slug: "ptp-wallclock", name: "PTP Wallclock", repo: "ptp-wallclock",
+        {slug: "ptp-wallclock", logo: "logos/ptp-wallclock.svg", name: "PTP Wallclock", repo: "ptp-wallclock",
          text: "A PTP client for the Raspberry Pi that makes time visible: on an LED matrix wall clock, as a fullscreen browser clock and, with a GNSS receiver, as a grandmaster and measurement instrument.",
          tags: ["Raspberry Pi", "Docker", "PTP"],
          features: [
