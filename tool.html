@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MoIP Tools</title>
+<meta name="description" content="">
+<link rel="icon" type="image/svg+xml" href="logo.svg">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="detail">
+
+<header>
+    <div class="wrap">
+        <a class="brand" href="./"><img src="logo.svg" alt=""> MoIP Tools</a>
+        <nav>
+            <a href="./#tools">Tools</a>
+            <a href="./#av-sync">AV sync signal</a>
+            <a href="./#help">Professional help</a>
+        </nav>
+        <a class="gh" href="https://github.com/Gemini2350" rel="noopener">GitHub ↗</a>
+    </div>
+</header>
+
+<main id="page"></main>
+
+<section class="pro" id="help">
+    <div class="wrap">
+        <div>
+            <h2>Need a hand with your network?</h2>
+            <p><strong>Simplexity</strong> offers vendor-independent consulting, training and troubleshooting
+               for AES67, Dante, SMPTE ST 2110, IPMX, NMOS and PTP — from strategy down to the bits and bytes.</p>
+        </div>
+        <a class="btn primary" href="https://simplexity.ch" rel="noopener">Professional help at simplexity.ch ↗</a>
+    </div>
+</section>
+
+<footer>
+    <div class="wrap">
+        <span>© 2026 Simplexity</span>
+        <a href="https://github.com/Gemini2350">GitHub</a>
+        <a href="https://simplexity.ch" rel="noopener">simplexity.ch</a>
+        <span class="fine">MoIP Tools is an independent project, not affiliated with Audinate, AMWA, SMPTE or the AES. AES67, NMOS, SMPTE ST 2110, Dante, IPMX and other
+            names are trademarks or standards of their respective owners and are used here only to describe
+            compatibility.</span>
+    </div>
+</footer>
+
+<script src="tools.js"></script>
+<script>
+// one page for every tool: tool.html?t=<slug>, content from tools.js
+const slug = new URLSearchParams(location.search).get("t");
+const t = ALL_TOOLS.find(x => x.slug === slug);
+const page = document.getElementById("page");
+const others = list => `<div class="others">${list.map(o => `<a href="${toolUrl(o)}">${esc(o.name)}</a>`).join("")}</div>`;
+
+if (!t) {
+    document.title = "Tool not found – MoIP Tools";
+    page.innerHTML = `
+    <div class="detail-hero"><div class="wrap">
+        <a class="crumb" href="./#tools">← All tools</a>
+        <h1>Tool not found</h1>
+        <p class="lead">There is no tool with this address. Pick one from the list:</p>
+        ${others(ALL_TOOLS)}
+    </div></div>`;
+} else {
+    document.title = `${t.name} – MoIP Tools`;
+    document.querySelector('meta[name="description"]').content = t.text;
+    const gh = GH + t.repo;
+    const releases = GH + t.repo.split("/")[0] + "/releases/latest";
+    page.innerHTML = `
+    <div class="detail-hero"><div class="wrap">
+        <a class="crumb" href="./#tools">← All tools</a>
+        <h1>${esc(t.name)}</h1>
+        <p class="lead">${esc(t.text)}</p>
+        ${t.base ? `<div class="base">Based on <a href="https://github.com/${esc(t.base)}" rel="noopener">${esc(t.base)}</a></div>` : ""}
+        <div class="tags">${t.tags.map(x => `<span class="tag">${esc(x)}</span>`).join("")}</div>
+        <div class="cta">
+            ${t.download ? `<a class="btn primary" href="${esc(releases)}" rel="noopener">Download</a>` : ""}
+            <a class="btn${t.download ? "" : " primary"}" href="${esc(gh)}" rel="noopener">${t.download ? "Source" : "Get it"} on GitHub ↗</a>
+            ${t.site ? `<a class="btn" href="${esc(t.site)}">Website</a>` : ""}
+        </div>
+    </div></div>
+    <section><div class="wrap">
+        <h2>What it does</h2>
+        <ul class="features">${t.features.map(f => `<li>${esc(f)}</li>`).join("")}</ul>
+    </div></section>
+    ${t.shots ? `<section><div class="wrap">
+        <h2>Screenshots</h2>
+        ${t.shotsNote ? `<p class="shots-note">${esc(t.shotsNote)}</p>` : ""}
+        <div class="shots">${t.shots.map(s => `
+            <figure>
+                <a href="shots/${esc(t.slug)}/${esc(s.file)}"><img src="shots/${esc(t.slug)}/${esc(s.file)}" alt="${esc(t.name)}: ${esc(s.caption)}" loading="lazy"></a>
+                <figcaption>${esc(s.caption)}</figcaption>
+            </figure>`).join("")}
+        </div>
+    </div></section>` : ""}
+    ${t.sample ? `<section><div class="wrap">
+        <h2>${esc(t.sample.title)}</h2>
+        <pre class="sample">${esc(t.sample.text)}</pre>
+    </div></section>` : ""}
+    <section><div class="wrap">
+        <h2>More ${esc(t.group)} tools</h2>
+        ${others(ALL_TOOLS.filter(o => o.group === t.group && o !== t).length
+            ? ALL_TOOLS.filter(o => o.group === t.group && o !== t) : ALL_TOOLS.filter(o => o !== t))}
+    </div></section>`;
+}
+</script>
+</body>
+</html>
